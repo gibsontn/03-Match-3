@@ -4,4 +4,4 @@
 
 [node name="Red" instance=ExtResource( 1 )]
 modulate = Color( 1, 0, 0, 1 )
-color = "Red"
+piece = "Red"

@@ -16,7 +16,7 @@ var scores = {
 }
 
 func _unhandled_input(event):
-	if event.is_action_pressed("quit"):
+	if event.is_action_pressed("menu"):
 		get_tree().quit()
 
 func change_score(s):

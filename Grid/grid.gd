@@ -13,9 +13,12 @@ var new_position = Vector2(0,0)
 
 # Piece Stuff
 var possible_pieces = [
-	load("res://Pieces/Red.tscn"),
-	load("res://Pieces/Green.tscn"),
-	load("res://Pieces/Blue.tscn")
+	load("res://Pieces/Apple.tscn"),
+	load("res://Pieces/Banana.tscn"),
+	load("res://Pieces/Blueberry.tscn"),
+	load("res://Pieces/Lime.tscn"),
+	load("res://Pieces/Orange.tscn"),
+	load("res://Pieces/Pear.tscn")
 ]
 
 var all_pieces
@@ -56,7 +59,7 @@ func generate_pieces():
 			piece = possible_pieces[piece_to_use].instance()
 			
 			var loops = 0
-			while check_for_matches(i,j, piece.color) && loops < 100:
+			while check_for_matches(i,j, piece.piece) && loops < 100:
 				piece_to_use = floor(rand_range(0, possible_pieces.size()))
 				if piece_to_use == 6:
 					piece_to_use = 5
@@ -67,23 +70,23 @@ func generate_pieces():
 			piece.position = Vector2(xStart + i * offset, yStart - j * offset)
 			all_pieces[i][j] = piece
 
-func check_for_matches(column, row, color):
+func check_for_matches(column, row, piece):
 	#Check Left
 	if column > 1 && row <= 1:
-		if(all_pieces[column - 1][row].color == color):
-			if(all_pieces[column - 2][row].color == color):
+		if(all_pieces[column - 1][row].piece == piece):
+			if(all_pieces[column - 2][row].piece == piece):
 				return true
 	#Check right
 	elif column <= 1 && row > 1:
-		if(all_pieces[column][row - 1].color == color):
-			if(all_pieces[column][row - 2].color == color):
+		if(all_pieces[column][row - 1].piece == piece):
+			if(all_pieces[column][row - 2].piece == piece):
 				return true
 	#Check Both
 	elif column > 1 && row > 1:
-		if((all_pieces[column - 1][row].color == color
-		&& all_pieces[column - 2][row].color == color)
-		|| (all_pieces[column][row -1].color == color
-		&& (all_pieces[column][row - 2].color == color))):
+		if((all_pieces[column - 1][row].piece == piece
+		&& all_pieces[column - 2][row].piece == piece)
+		|| (all_pieces[column][row -1].piece == piece
+		&& (all_pieces[column][row - 2].piece == piece))):
 			return true
 	return false
 
@@ -130,16 +133,16 @@ func find_matches():
 		for j in height:
 			#Check left and right
 			if i > 0 && i < width - 1:
-				var color = all_pieces[i][j].color
-				if (all_pieces[i - 1][j].color == color 
-				&& all_pieces[i + 1][j].color == color):
+				var piece = all_pieces[i][j].piece
+				if (all_pieces[i - 1][j].piece == piece 
+				&& all_pieces[i + 1][j].piece == piece):
 					all_pieces[i - 1][j].is_matched = true
 					all_pieces[i + 1][j].is_matched = true
 					all_pieces[i][j].is_matched = true
 			if j > 0 && j < height - 1:
-				var color = all_pieces[i][j].color
-				if (all_pieces[i][j - 1].color == color 
-				&& all_pieces[i][j + 1].color == color):
+				var piece = all_pieces[i][j].piece
+				if (all_pieces[i][j - 1].piece == piece 
+				&& all_pieces[i][j + 1].piece == piece):
 					all_pieces[i][j - 1].is_matched = true
 					all_pieces[i][j + 1].is_matched = true
 					all_pieces[i][j].is_matched = true
@@ -153,9 +156,9 @@ func find_matches():
 		for j in height:
 			var count_matched = 0
 			if all_pieces[i][j].is_matched and not all_pieces[i][j].is_counted:
-				count_matched += check_across(i, j, all_pieces[i][j].color);
-				mark_across(i,j, all_pieces[i][j].color)
-				mark_down(i,j, all_pieces[i][j].color)
+				count_matched += check_across(i, j, all_pieces[i][j].piece);
+				mark_across(i,j, all_pieces[i][j].piece)
+				mark_down(i,j, all_pieces[i][j].piece)
 				Global.change_score(Global.scores[count_matched])
 	destroy_matched()
 
@@ -163,7 +166,7 @@ func check_across(i,j,value):
 	if i < 0 or i >= width or j < 0 or j >= height: return 0
 	if not all_pieces[i][j].is_matched or all_pieces[i][j].is_counted: return 0
 	var count = 0
-	if all_pieces[i][j].color != value: return 0
+	if all_pieces[i][j].piece != value: return 0
 	else: count += 1
 	count += check_across(i + 1, j, value)
 	count += check_down(i, j + 1, value)
@@ -173,7 +176,7 @@ func check_down(i,j,value):
 	if i < 0 or i >= width or j < 0 or j >= height: return 0
 	if not all_pieces[i][j].is_matched or all_pieces[i][j].is_counted: return 0
 	var count = 0
-	if all_pieces[i][j].color != value: return 0
+	if all_pieces[i][j].piece != value: return 0
 	else: count += 1
 	count += check_down(i, j + 1, value)
 	return count
@@ -181,7 +184,7 @@ func check_down(i,j,value):
 func mark_across(i,j,value):
 	if i < 0 or i >= width or j < 0 or j >= height: return
 	if not all_pieces[i][j].is_matched or all_pieces[i][j].is_counted: return
-	if all_pieces[i][j].color != value: return
+	if all_pieces[i][j].piece != value: return
 	all_pieces[i][j].is_counted = true
 	mark_across(i + 1, j, value)
 	mark_down(i, j + 1, value)
@@ -189,7 +192,7 @@ func mark_across(i,j,value):
 func mark_down(i,j,value):
 	if i < 0 or i >= width or j < 0 or j >= height: return
 	if not all_pieces[i][j].is_matched or all_pieces[i][j].is_counted: return
-	if all_pieces[i][j].color != value: return
+	if all_pieces[i][j].piece != value: return
 	all_pieces[i][j].is_counted = true
 	mark_down(i, j + 1, value)
 
@@ -222,7 +225,7 @@ func refill_columns():
 				piece = possible_pieces[piece_to_use].instance()
 				
 				var loops = 0
-				while check_for_matches(i,j, piece.color) && loops < 100:
+				while check_for_matches(i,j, piece.piece) && loops < 100:
 					piece_to_use = floor(rand_range(0, possible_pieces.size()))
 					if piece_to_use == 6:
 						piece_to_use = 5
