@@ -4,7 +4,7 @@
 [ext_resource path="res://Assets/pinklemonfruit.png" type="Texture" id=2]
 
 [node name="Pinklemon" instance=ExtResource( 1 )]
-piece = "Blueberry"
+color = "Pinklemon"
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )

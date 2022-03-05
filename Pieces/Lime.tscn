@@ -4,7 +4,7 @@
 [ext_resource path="res://Pieces/Piece.tscn" type="PackedScene" id=2]
 
 [node name="Lime" instance=ExtResource( 2 )]
-piece = "Lime"
+color = "Lime"
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 1 )
