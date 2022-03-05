@@ -15,9 +15,6 @@ export var transparent_time = 1.0
 export var scale_time = 1.5
 export var rot_time = 1.5
 
-var sound_1 = null
-var sound_2 = null
-var sound_3 = null
 
 var Icecube = preload("res://Icecube/Icecube.tscn")
 
