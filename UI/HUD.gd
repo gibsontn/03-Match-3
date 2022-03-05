@@ -5,4 +5,4 @@ func _ready():
 	_on_score_changed()
 
 func _on_score_changed():
-	$Score.text = "Score: " + str(Global.score)
+	$Score.text = str(Global.score)
