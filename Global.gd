@@ -1,5 +1,7 @@
 extends Node
 
+var camera = null
+
 var score = 0
 signal changed
 var scores = {
@@ -14,6 +16,9 @@ var scores = {
 	8:300,
 	9:1000
 }
+
+func _ready():
+	randomize()	
 
 func _unhandled_input(event):
 	if event.is_action_pressed("menu"):

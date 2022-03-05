@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Pieces/Piece.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Placeholder.png" type="Texture" id=2]
 [ext_resource path="res://Assets/star.png" type="Texture" id=3]
+[ext_resource path="res://Assets/star_small.png" type="Texture" id=4]
 
 [sub_resource type="Gradient" id=2]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
@@ -34,6 +35,35 @@ hue_variation_random = 1.0
 [sub_resource type="CanvasItemMaterial" id=1]
 blend_mode = 1
 
+[sub_resource type="Gradient" id=7]
+offsets = PoolRealArray( 0, 0.525074, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 7 )
+
+[sub_resource type="Curve" id=9]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.497807, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.964912, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=10]
+curve = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=11]
+emission_shape = 2
+emission_box_extents = Vector3( 50, 50, 1 )
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 98, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel = -500.0
+radial_accel_random = 1.0
+scale_curve = SubResource( 10 )
+color_ramp = SubResource( 8 )
+hue_variation = 0.25
+hue_variation_random = 0.25
+
 [node name="Piece" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -49,3 +79,15 @@ texture = ExtResource( 3 )
 [node name="Select" type="Sprite" parent="."]
 modulate = Color( 1, 1, 0, 1 )
 material = SubResource( 1 )
+
+[node name="Falling" type="Particles2D" parent="."]
+emitting = false
+process_material = SubResource( 11 )
+texture = ExtResource( 4 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
