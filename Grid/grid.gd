@@ -159,7 +159,7 @@ func find_matches():
 				count_matched += check_across(i, j, all_pieces[i][j].color);
 				mark_across(i,j, all_pieces[i][j].color)
 				mark_down(i,j, all_pieces[i][j].color)
-				#Global.change_score(Global.scores[count_matched])
+				Global.change_score(Global.scores[count_matched])
 	destroy_matched()
 
 func check_across(i,j,value):
