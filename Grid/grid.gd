@@ -67,7 +67,7 @@ func generate_pieces():
 				loops += 1
 			
 			add_child(piece)
-			piece.position = Vector2(xStart + i * offset, yStart - j * offset)
+			piece.generate(Vector2(xStart + i * offset, yStart - j * offset))
 			all_pieces[i][j] = piece
 
 func check_for_matches(column, row, color):
@@ -233,7 +233,7 @@ func refill_columns():
 					loops += 1
 				
 				add_child(piece)
-				piece.position = Vector2(xStart + i * offset, yStart - j * offset)
+				piece.generate(Vector2(xStart + i * offset, yStart - j * offset))
 				all_pieces[i][j] = piece
 
 func touch_input():
@@ -250,4 +250,6 @@ func touch_input():
 			touch_difference(first_touch, final_touch)
 
 func move_piece(p, position_change):
-	p.position += position_change
+	p.move_piece(p.position + position_change)
+
+

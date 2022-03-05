@@ -25,7 +25,7 @@ func _ready():
 func _physics_process(_delta):
 	if dying:
 		queue_free()
-	elif position != target_position:
+	elif position != target_position and not $Tween.is_active():
 		position = target_position
 	if selected:
 		$Select.show()
@@ -37,9 +37,13 @@ func _physics_process(_delta):
 func generate(pos):
 	position = Vector2(pos.x,-100)
 	target_position = pos
+	$Tween.interpolate_property(self, "position", position, target_position, randf()+0.5, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
+	$Tween.start()
 
 func move_piece(change):
 	target_position = target_position + change
+	$Tween.interpolate_property(self, "position", position, target_position, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$Tween.start()
 
 func die():
 	dying = true;
@@ -49,3 +53,15 @@ func die():
 		var icecube = Icecube.instance()
 		icecube.position = target_position
 		Effects.add_child(icecube)
+	if Effects != null:
+		get_parent().remove_child(self)
+		Effects.add_child(self)
+		$Timer.wait_time = 0.5 + (randf() / 10.0)
+		$Timer.start()
+		$Falling.emitting = true
+		$Tween.interpolate_property(self, "modulate:a", 1, 0, transparent_time, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		$Tween.start()
+		$Tween.interpolate_property(self, "scale", scale, Vector2(3,3), scale_time, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		$Tween.start()
+		$Tween.interpolate_property($Sprite, "rotation",rotation, (randf()*4*PI)-2*PI, rot_time, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		$Tween.start()

@@ -1,11 +1,38 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Grid/grid.gd" type="Script" id=1]
 [ext_resource path="res://Pieces/Piece Background.tscn" type="PackedScene" id=2]
 [ext_resource path="res://UI/HUD.gd" type="Script" id=3]
 [ext_resource path="res://Assets/icecubelight.png" type="Texture" id=4]
-[ext_resource path="res://Assets/background2.png" type="Texture" id=5]
+[ext_resource path="res://Assets/backgroundgame.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Ignotum.otf" type="DynamicFontData" id=6]
+
+[sub_resource type="Shader" id=2]
+code = "/*
+Shader from Godot Shaders - the free shader library.
+godotshaders.com/shader/pixelate
+
+This shader is under CC0 license. Feel free to use, improve and 
+change this shader according to your needs and consider sharing 
+the modified result to godotshaders.com.
+*/
+
+shader_type canvas_item;
+
+uniform int amount = 40;
+
+void fragment()
+{
+	vec2 grid_uv = round(UV * float(amount)) / float(amount);
+	
+	vec4 text = texture(TEXTURE, grid_uv);
+	
+	COLOR = text;
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+shader_param/amount = 75
 
 [sub_resource type="DynamicFont" id=1]
 size = 18
@@ -14,6 +41,9 @@ font_data = ExtResource( 6 )
 [node name="Game" type="Node2D"]
 
 [node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 3 )
+position = Vector2( -21, 0 )
+scale = Vector2( 0.269298, 0.683553 )
 texture = ExtResource( 5 )
 centered = false
 
