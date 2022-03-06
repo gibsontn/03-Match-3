@@ -9,7 +9,9 @@ Add sound effects,
 Add music, 
 Add a background to the game, 
 Animate the elements when they are selected, 
-Pieces turn into ice cubes when matched, 
+Pieces turn into ice cubes when matched,
+Elements visibly swap when matching,
+Elements fall and bounce into place when generated,
 
 
 ## References
