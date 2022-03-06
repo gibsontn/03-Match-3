@@ -1,9 +1,8 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Pieces/Piece.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Placeholder.png" type="Texture" id=2]
-[ext_resource path="res://Assets/star.png" type="Texture" id=3]
-[ext_resource path="res://Assets/star_small.png" type="Texture" id=4]
+[ext_resource path="res://Assets/droplet.png" type="Texture" id=4]
 
 [sub_resource type="Gradient" id=2]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
@@ -26,7 +25,7 @@ initial_velocity = 150.0
 initial_velocity_random = 0.25
 orbit_velocity = 1.0
 orbit_velocity_random = 1.0
-scale = 0.2
+scale = 0.5
 scale_curve = SubResource( 5 )
 color_ramp = SubResource( 3 )
 hue_variation = 1.0
@@ -74,7 +73,7 @@ texture = ExtResource( 2 )
 emitting = false
 lifetime = 0.75
 process_material = SubResource( 6 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Select" type="Sprite" parent="."]
 visible = false

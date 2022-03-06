@@ -55,7 +55,6 @@ func move_piece(change):
 		sound_1.play()
 
 func die():
-	dying = true;
 	if Effects == null:
 		Effects = get_node_or_null("/root/Game/Effects")
 	if Effects != null:
@@ -74,3 +73,4 @@ func die():
 		$Tween.start()
 		$Tween.interpolate_property($Sprite, "rotation",rotation, (randf()*4*PI)-2*PI, rot_time, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		$Tween.start()
+	dying = true;

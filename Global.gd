@@ -3,6 +3,8 @@ extends Node
 var camera = null
 
 var score = 0
+var time = 60
+
 signal changed
 var scores = {
 	0:0,
@@ -18,7 +20,7 @@ var scores = {
 }
 
 func _ready():
-	randomize()	
+	randomize()
 
 func _unhandled_input(event):
 	if event.is_action_pressed("menu"):
@@ -27,3 +29,15 @@ func _unhandled_input(event):
 func change_score(s):
 	score += s
 	emit_signal("changed")
+
+func update_time(t):
+	time += t
+	if time <= 0:
+		var _scene = get_tree().change_scene("res://UI/End_Game.tscn")
+	var hud = get_node_or_null("/root/Game/HUD")
+	if hud != null:
+		hud.update_time()
+
+func reset():
+	score = 0
+	time = 60
