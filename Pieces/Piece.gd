@@ -8,15 +8,16 @@ var target_position = Vector2.ZERO
 
 var Effects = null
 var dying = false
-var wiggle = 0.0
-export var wiggle_amount = 3
+var fall_speed = 1.0
 
 export var transparent_time = 1.0
 export var scale_time = 1.5
 export var rot_time = 1.5
 
-
 var Icecube = preload("res://Icecube/Icecube.tscn")
+
+var sound_1 = null
+var sound_2 = null
 
 func _ready():
 	$Select.texture = $Sprite.texture
@@ -39,11 +40,19 @@ func generate(pos):
 	target_position = pos
 	$Tween.interpolate_property(self, "position", position, target_position, randf()+0.5, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
 	$Tween.start()
+	if sound_2 == null:
+		sound_2 = get_node_or_null("/root/Game/Generate")
+	if sound_2 != null:
+		sound_2.play()
 
 func move_piece(change):
 	target_position = target_position + change
 	$Tween.interpolate_property(self, "position", position, target_position, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$Tween.start()
+	if sound_1 == null:
+		sound_1 = get_node_or_null("/root/Game/Pop")
+	if sound_1 != null:
+		sound_1.play()
 
 func die():
 	dying = true;

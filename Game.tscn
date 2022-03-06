@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Grid/grid.gd" type="Script" id=1]
 [ext_resource path="res://Pieces/Piece Background.tscn" type="PackedScene" id=2]
@@ -6,6 +6,10 @@
 [ext_resource path="res://Assets/icecubelight.png" type="Texture" id=4]
 [ext_resource path="res://Assets/backgroundgame.png" type="Texture" id=5]
 [ext_resource path="res://Assets/ARCADECLASSIC.TTF" type="DynamicFontData" id=6]
+[ext_resource path="res://Assets/pop.wav" type="AudioStream" id=7]
+[ext_resource path="res://Assets/Generate.wav" type="AudioStream" id=8]
+[ext_resource path="res://Assets/skippymrsunshine.ogg" type="AudioStream" id=9]
+[ext_resource path="res://UI/Music.gd" type="Script" id=10]
 
 [sub_resource type="Shader" id=2]
 code = "/*
@@ -89,3 +93,18 @@ text = "	"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = -7.429
+autoplay = true
+script = ExtResource( 10 )
+
+[node name="Pop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="Generate" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -4.333
+
+[connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
