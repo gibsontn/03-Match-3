@@ -4,12 +4,12 @@ A Match-3 project for MSCH-C220 completed on March 5, 2022. The goal of this pro
 Citrus Splash is a simple Match-3 game where the player matches assorted citrus fruits for a minute straight, attempting to make as many matches as possible in order to collect ice cubes for an icy, refreshing drink.
 
 ## Implementation
-Shaders \n
-Add sound effects
-Add music
-Add a background to the game
-Animate the elements when they are selected
-Pieces turn into ice cubes when matched
+Shaders, 
+Add sound effects, 
+Add music, 
+Add a background to the game, 
+Animate the elements when they are selected, 
+Pieces turn into ice cubes when matched, 
 
 
 ## References
