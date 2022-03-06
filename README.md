@@ -12,6 +12,7 @@ Menu background from [itch.io](https://cartooncoffee.itch.io/sunnycloud)
 Game background from [OpenGameArt.org](https://opengameart.org/content/sunny-background)
 Pixelate Shader from [GodotShaders.com](https://godotshaders.com/shader/pixelate/)
 Pixel font from [1001fonts.com](https://www.1001fonts.com/pixel-fonts.html)
+Sounds created using [Audacity](https://www.audacityteam.org)
 
 ## Future Development
 
